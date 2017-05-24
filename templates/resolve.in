@@ -1,0 +1,7 @@
+# resolv.in by {{ name | upper }}
+{% if domain is defined -%}
+domain {{ domain }}
+{% endif -%}
+{% for ns in resolvers -%}
+nameserver {{ ns }}
+{% endfor %}

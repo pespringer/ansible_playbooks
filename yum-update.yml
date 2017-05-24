@@ -1,0 +1,22 @@
+# filename: yum_update.yml
+---
+- hosts: home
+  remote_user: pspringer
+  become_method: sudo
+  become_user: root
+  tasks:
+     - name: Updating yum cache
+       yum: 
+         name: '*'
+         update_cache: yes
+       become: yes
+     - name: Installing net-tools
+       yum:
+          name: 'net-tools.x86_64'
+          state: latest
+       become: yes
+     - name: Installing emacs
+       yum:
+          name: 'emacs.x86_64'
+          state: latest
+       become: yes

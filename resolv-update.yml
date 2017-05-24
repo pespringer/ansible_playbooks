@@ -1,0 +1,29 @@
+# filename: resolv_update.yml
+---
+- hosts: home
+  remote_user: pspringer
+  become_method: sudo
+  become_user: root
+  become: yes
+  vars:
+      name: home
+      resolvers:
+      - 10.0.1.31
+      - 10.0.1.1
+  tasks:
+  - name: Setting permissions to resolv.conf
+    file: 
+        path: /etc/resolv.conf
+        owner: root
+        group: root
+        mode: 0777
+  - name: Deploy resolv.conf
+    action: template src=./templates/resolve.in dest=/etc/resolv.conf
+  - name: Setting permissions back to orig on resolv.conf
+    file: 
+        path: /etc/resolv.conf
+        owner: root
+        group: root
+        mode: 0644
+  - name: get INVENTORY
+    action: fetch src=/etc/ansible/setup dest=/tmp/ss

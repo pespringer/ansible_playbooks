@@ -1,0 +1,8 @@
+# filename: run-puppet.yml
+---
+- hosts: all
+  remote_user: root
+  become: yes
+  serial: 3
+  tasks:
+     - puppet:
